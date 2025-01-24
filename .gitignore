@@ -1,0 +1,5 @@
+.env
+.idea/*
+venv/*
+bot_files/temp.py
+bot_files/help_rl.cur
