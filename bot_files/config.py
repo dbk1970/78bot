@@ -1,4 +1,4 @@
-AUTH_TOKEN = '7570548872:AAH23WPo8KnM9ikXKRha0ks6iH6p20j23ao'
+AUTH_TOKEN = 'x'
 DICT_MENU = {'brief_instructions': 'Краткие инструкции по общению с ботом: \n'
                                    '<b>+</b> - запись на игру \n'
                                    '<b>++Иванов</b> - запись на игру чужого игрока (например Иванова) \n'
