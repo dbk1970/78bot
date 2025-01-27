@@ -21,10 +21,10 @@ async def main():
 
 if __name__ == "__main__":
     # logger = logging.getLogger(__name__)
-    file_handler = logging.FileHandler("data.log")
+    # file_handler = logging.FileHandler("data.log")
     logger.setLevel(logging.INFO)
     console = logging.StreamHandler()
     logging.basicConfig(level=logging.INFO, datefmt="%y-%m-%d %H:%M:%S",
         format="[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s",
-        handlers=[file_handler, console])
+        handlers=[console])
     asyncio.run(main())

@@ -5,39 +5,37 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from bot_files.logic import list_team, add_member_team, delete_member_team, named_players
+from bot_files.logic import list_team, add_member_team, delete_member_team, named_players, day_x, time_x, days_of_week
 from bot_files.models import MyBotCls
 
-logger_handlers = logging.getLogger(__name__)
 logger = logging.getLogger(__name__)
-logger_handlers.setLevel(logging.INFO)
-file_handler_tread = logging.FileHandler("tread.log", encoding='Windows-1251', errors='ignore')
-file_handler_tread.setFormatter(logging.Formatter("%(asctime)s %(message)s"))
-logger_handlers.addHandler(file_handler_tread)
-logger_handlers.propagate = False
 router = Router()
 bt = MyBotCls()
 logger.info("go handlers")
 
 def tread_handler(msg: Message):
-    format_tread = (str(msg.from_user.id)
-                    + '|'  + msg.from_user.full_name
+    format_tread = (str(msg.chat.id)
+                    + '|' + str(msg.from_user.id)
+                    + '|' + msg.from_user.full_name
                     + '|' + msg.date.strftime("%M:%S.%f")
                     + '|' + datetime.now().strftime("%M:%S.%f")+'|')
     if msg.forward_date:
         format_tread += msg.forward_date.strftime("%d/%m, %H:%M:%S.%f") + '|'
-    logger_handlers.info(format_tread)
-    logger_handlers.info(msg.text)
+    logger.info(format_tread)
+    logger.info(msg.text)
 
 @router.message(Command("start"))
 async def start_handler(msg: Message):
     tread_handler(msg)
-    await msg.answer("Привет! Я Бот-счетовод! Считаю игроков, вместо Ланкина!")
+    await msg.answer(bt.dict_menu['welcoming'])
+
 
 @router.message(F.text.startswith('+'))
 async def add_handler(msg: Message):
     tread_handler(msg)
     name_player = named_players(msg.from_user.id, msg.from_user.full_name)
+    if not day_x(bt) or not time_x(bt):
+        return await msg.answer(days_of_week(bt))
     if msg.text.startswith('++'):
         name_player[2] = msg.text[2:]
         logger.info('add alien player')
@@ -73,8 +71,6 @@ async def list_team_handler(msg: Message):
 @router.message(F.text.lower() == 'помощь')
 async def get_help(msg: Message):
     tread_handler(msg)
-
-    logger_handlers.info('get_help')
     await msg.answer(bt.dict_menu['brief_instructions'])
 
 @router.message()
