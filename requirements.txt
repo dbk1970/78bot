@@ -1,4 +1,4 @@
-python ==3.13
+python ==3.13.0
 logging
 aiogram
 aioredis ==2.0
