@@ -1,4 +1,7 @@
-AUTH_TOKEN = 'x'
+import os
+from dotenv import load_dotenv
+load_dotenv()
+AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 DICT_MENU = {'brief_instructions': 'Краткие инструкции по общению с ботом: \n'
                                    '<b>+</b> - запись на игру \n'
                                    '<b>++Иванов</b> - запись на игру чужого игрока (например Иванова) \n'
@@ -19,6 +22,5 @@ VIP_TEAM_MEMBERS = [[1087968824,'Алексей', None, None], [7735565359,'Ва
 DAY_OF_THE_WEEK_DEFAULT = [1, 2,]
 VOTING_TIME_DEFAULT = '12:00:00'
 NUMBERS_TEAM_MEMBERS = 5
-VOTING_MEMBERS = {}
 END_COUNTDOWN = False # флаг окончания набора команды
 WEEK = ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье']

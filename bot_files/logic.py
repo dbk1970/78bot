@@ -6,14 +6,14 @@ from bot_files.config import WEEK
 
 logger = logging.getLogger(__name__)
 
-async def named_players(id_player, full_name_player):
+def named_players(id_player, full_name_player):
     id_player = id_player
     full_name = full_name_player
     alien_name = None
     player_vote_time = datetime.datetime.now().strftime('%H:%M:%S:%f')
     return [id_player, full_name, alien_name, player_vote_time]
 
-async def list_team(bt:MyBotCls):
+def list_team(bt:MyBotCls):
     list_players = ''
     for n in range(len(bt.voting_members)):
         player = bt.voting_members[n][1]
