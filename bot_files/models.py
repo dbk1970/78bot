@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-import yaml
+# import yaml
 
 from bot_files.config import (DAY_OF_THE_WEEK_DEFAULT, VOTING_TIME_DEFAULT,
                               NUMBERS_TEAM_MEMBERS_DEFAULT, VIP_TEAM_MEMBERS_DEFAULT, PATH_YAML)

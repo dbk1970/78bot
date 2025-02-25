@@ -1,19 +1,20 @@
 import logging
-import os.path
 from datetime import datetime, date
 
 
 from aiogram import Bot
 from aiogram.client.default import DefaultBotProperties
+from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.types import KeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-from bot_files.models import MyBotCls, new_groups
+from bot_files.models import new_groups
 from bot_files.config import *
 
 
 logger = logging.getLogger(__name__)
+# session = AiohttpSession(proxy='http://proxy.server:3128')
 bot = Bot(token=AUTH_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 groups = new_groups(GROUP_CHAT_ID_DEFAULT, [ADMINS_IDS_DEFAULT_1, ADMINS_IDS_DEFAULT_2])
 
@@ -90,12 +91,10 @@ def its_time(chat_id: int)-> bool:
 
 def day_x(chat_id: int)-> bool:
     """ Функция проверки правильности дня недели для начала голосования """
-    print(groups)
     return date.today().isoweekday() in groups[chat_id].day_of_the_week
 
 def time_x(chat_id: int)-> bool:
     """ Функция проверки времени начала голосования, для последующего голосования """
-    print(groups)
     return datetime.now().strftime('%H:%M:%S') >= groups[chat_id].voting_time
 
 
